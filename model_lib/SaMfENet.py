@@ -7,7 +7,7 @@ import torch.nn.parallel
 import torch.utils.data
 
 
-# Edge-attention image feature extraction module
+# <editor-fold desc="Edge-attention image feature extraction module">
 class DoubleConv(nn.Module):
     """(convolution => [BN] => ReLU) * 2"""
 
@@ -126,10 +126,10 @@ class UNet(nn.Module):
         return x_edge, x_out
 
 
-###
+# </editor-fold>
 
 
-# MSPNet
+# <editor-fold desc="MSPNet">
 class Concurrent(nn.Sequential):
 
     def __init__(self,
@@ -316,10 +316,10 @@ class SK_PointNet(nn.Module):
         return x_feat  # [B,384,N]
 
 
-###
+# </editor-fold>
 
 
-# NetVLAD
+# <editor-fold desc="NetVLAD">
 class NetVLADLoupe(nn.Module):
     def __init__(self, feature_size, max_samples, cluster_size, output_dim,
                  gating=True, add_batch_norm=True):
@@ -420,10 +420,10 @@ class GatingContext(nn.Module):
         return activation
 
 
-###
+# </editor-fold>
 
 
-# SENet
+# <editor-fold desc="SENet">
 class SEBlock(nn.Module):
     def __init__(self, channels):
         super(SEBlock, self).__init__()
@@ -448,10 +448,10 @@ class SEBlock(nn.Module):
         return x
 
 
-###
+# </editor-fold>
 
 
-# SaMfENet
+# <editor-fold desc="SaMfENet">
 class PoseNetFeat(nn.Module):
     def __init__(self, num_points):
         super(PoseNetFeat, self).__init__()
@@ -565,10 +565,10 @@ class SaMfENet(nn.Module):
         return out_rx, out_tx, out_cx, emb.detach(), out_edge
 
 
-###
+# </editor-fold>
 
 
-# Refiner
+# <editor-fold desc="Refiner">
 class PoseRefineNetFeat(nn.Module):
     def __init__(self, num_points):
         super(PoseRefineNetFeat, self).__init__()
@@ -637,4 +637,4 @@ class PoseRefineNet(nn.Module):
         out_tx = torch.index_select(tx[b], 0, obj[b])
 
         return out_rx, out_tx
-###
+# </editor-fold>
