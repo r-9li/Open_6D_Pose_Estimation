@@ -1,0 +1,6 @@
+# ninja log v5
+0	7755	0	/home/r/桌面/DenseFusion-2/lib/knn/build/temp.linux-x86_64-cpython-37/home/r/桌面/DenseFusion-2/lib/knn/src/cpu/knn_cpu.o	baab5e584ed55f02
+0	11276	0	/home/r/桌面/DenseFusion-2/lib/knn/build/temp.linux-x86_64-cpython-37/home/r/桌面/DenseFusion-2/lib/knn/src/vision.o	8ba41cdb120a198
+1	358	0	/home/r/桌面/DenseFusion-2/lib/knn/build/temp.linux-x86_64-cpython-37/home/r/桌面/DenseFusion-2/lib/knn/src/cuda/knn.o	347ef932da1f00f3
+1	7967	0	/home/r/桌面/DenseFusion-2/lib/knn/build/temp.linux-x86_64-cpython-37/home/r/桌面/DenseFusion-2/lib/knn/src/cpu/knn_cpu.o	4ecc9565ca91b23f
+2	11585	0	/home/r/桌面/DenseFusion-2/lib/knn/build/temp.linux-x86_64-cpython-37/home/r/桌面/DenseFusion-2/lib/knn/src/vision.o	15de9aecc86628ec
