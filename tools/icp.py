@@ -33,14 +33,14 @@ def best_fit_transform(A, B):
 
     # special reflection case
     if np.linalg.det(R) < 0:
-       Vt[m-1,:] *= -1
-       R = np.dot(Vt.T, U.T)
+        Vt[m - 1, :] *= -1
+        R = np.dot(Vt.T, U.T)
 
     # translation
-    t = centroid_B.T - np.dot(R,centroid_A.T)
+    t = centroid_B.T - np.dot(R, centroid_A.T)
 
     # homogeneous transformation
-    T = np.identity(m+1)
+    T = np.identity(m + 1)
     T[:m, :m] = R
     T[:m, m] = t
 
@@ -87,10 +87,10 @@ def icp(A, B, init_pose=None, max_iterations=20, tolerance=0.001):
     m = A.shape[1]
 
     # make points homogeneous, copy them to maintain the originals
-    src = np.ones((m+1,A.shape[0]))
-    dst = np.ones((m+1,B.shape[0]))
-    src[:m,:] = np.copy(A.T)
-    dst[:m,:] = np.copy(B.T)
+    src = np.ones((m + 1, A.shape[0]))
+    dst = np.ones((m + 1, B.shape[0]))
+    src[:m, :] = np.copy(A.T)
+    dst[:m, :] = np.copy(B.T)
 
     # apply the initial pose estimation
     if init_pose is not None:
@@ -100,10 +100,10 @@ def icp(A, B, init_pose=None, max_iterations=20, tolerance=0.001):
 
     for i in range(max_iterations):
         # find the nearest neighbors between the current source and destination points
-        distances, indices = nearest_neighbor(src[:m,:].T, dst[:m,:].T)
+        distances, indices = nearest_neighbor(src[:m, :].T, dst[:m, :].T)
 
         # compute the transformation between the current source and nearest destination points
-        T,_,_ = best_fit_transform(src[:m,:].T, dst[:m,indices].T)
+        T, _, _ = best_fit_transform(src[:m, :].T, dst[:m, indices].T)
 
         # update the current source
         src = np.dot(T, src)
@@ -115,10 +115,9 @@ def icp(A, B, init_pose=None, max_iterations=20, tolerance=0.001):
         prev_error = mean_error
 
     # calculate final transformation
-    T,_,_ = best_fit_transform(A, src[:m,:].T)
+    T, _, _ = best_fit_transform(A, src[:m, :].T)
 
     return T, distances, i
-
 
 
 def my_nearest_neighbor(src, dst):
@@ -157,10 +156,10 @@ def my_icp(A, B, init_pose=None, max_iterations=20, tolerance=0.001):
     m = A.shape[1]
 
     # make points homogeneous, copy them to maintain the originals
-    src = np.ones((m+1,A.shape[0]))
-    dst = np.ones((m+1,B.shape[0]))
-    src[:m,:] = np.copy(A.T)
-    dst[:m,:] = np.copy(B.T)
+    src = np.ones((m + 1, A.shape[0]))
+    dst = np.ones((m + 1, B.shape[0]))
+    src[:m, :] = np.copy(A.T)
+    dst[:m, :] = np.copy(B.T)
 
     # apply the initial pose estimation
     if init_pose is not None:
@@ -171,11 +170,11 @@ def my_icp(A, B, init_pose=None, max_iterations=20, tolerance=0.001):
     for i in range(max_iterations):
         # find the nearest neighbors between the current source and destination points
         # distances, indices = my_nearest_neighbor(src[:m,:].T, dst[:m,:].T)
-        distances, indices = my_nearest_neighbor(dst[:m,:].T, src[:m,:].T)
+        distances, indices = my_nearest_neighbor(dst[:m, :].T, src[:m, :].T)
         # print("distance in icp: ", np.mean(distances))
 
         # compute the transformation between the current source and nearest destination points
-        T,_,_ = best_fit_transform(src[:m,indices].T, dst[:m,:].T)
+        T, _, _ = best_fit_transform(src[:m, indices].T, dst[:m, :].T)
 
         # update the current source
         src = np.dot(T, src)
@@ -187,6 +186,6 @@ def my_icp(A, B, init_pose=None, max_iterations=20, tolerance=0.001):
         prev_error = mean_error
 
     # calculate final transformation
-    T,_,_ = best_fit_transform(A, src[:m,:].T)
+    T, _, _ = best_fit_transform(A, src[:m, :].T)
 
     return T, distances, i
